@@ -1,0 +1,37 @@
+{
+  "name": "trame-react",
+  "version": "1.0.0",
+  "description": "Requires a paraview 5.10+",
+  "type": "module",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "prepare": "npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@kitware/trame-iframe": "^1.1.1"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.25.9",
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-terser": "0.4.4",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-babel": "6.0.4",
+    "@rollup/plugin-typescript": "12.1.1",
+    "babel-preset-react": "^6.24.1",
+    "rollup": "^4.24.4",
+    "typescript": "5.6.3",
+    "tslib": "2.8.1"
+  }
+}

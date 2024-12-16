@@ -1,2 +1,4 @@
-venv/
-react-app/node_modules/*
+example/trame-app/.venv
+example/react-app/node_modules
+node_modules
+dist
