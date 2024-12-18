@@ -1,9 +1,12 @@
 {
-  "name": "trame-react",
+  "name": "@kitware/trame-react",
   "version": "1.0.0",
-  "description": "Requires a paraview 5.10+",
+  "description": "React wrapper to trame-iframe",
   "type": "module",
   "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "directories": {
     "example": "example"
   },
@@ -12,7 +15,7 @@
     "prepare": "npm run build"
   },
   "keywords": [],
-  "author": "",
+  "author": "Kitware",
   "license": "Apache-2.0",
   "dependencies": {
     "@kitware/trame-iframe": "^1.1.1"
@@ -22,6 +25,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "semantic-release": "24.2.0",
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.25.9",
     "@rollup/plugin-commonjs": "^28.0.1",
