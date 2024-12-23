@@ -14,7 +14,6 @@ const TrameIframeApp: React.FC<TrameIframeAppProps> =
     let iframe: HTMLElement | null = null;
 
     useEffect(() => {
-      // lookup the iframe element
       iframe = document.getElementById(iframeId);
 
       if (iframe == null) {
