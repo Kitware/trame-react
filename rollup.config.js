@@ -13,7 +13,13 @@ export default {
       exports: 'named',
     },
     {
-      file: 'dist/trame-react.esm.js',
+      file: 'dist/trame-react.umd.js',
+      format: 'umd', // CommonJS for Node.js
+      exports: 'named',
+      name: 'trame-react'
+    },
+    {
+      file: 'dist/trame-react.mjs',
       format: 'esm', // ES Module for modern bundlers
       exports: 'named',
     },

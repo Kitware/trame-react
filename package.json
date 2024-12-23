@@ -3,7 +3,9 @@
   "version": "1.0.1",
   "description": "React wrapper to trame-iframe",
   "type": "module",
-  "main": "index.js",
+  "main": "./dist/trame-react.umd.js",
+  "unpkg": "./dist/trame-react.umd.js",
+  "module": "./dist/trame-react.mjs",
   "publishConfig": {
     "access": "public"
   },
