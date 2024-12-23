@@ -1,46 +1,44 @@
-# React/trame application 
+# trame-react: a trame-iframe client wrapper for React-based application
 
-Requires a paraview 5.10+
+`trame-react` provides a React wrapper around the [trame-iframe](https://www.npmjs.com/package/@kitware/trame-iframe) package.  
+Use it if you want to integrate a trame-based application inside a react-based application through an iframe.  
+Just run `npm install @kitware/trame-react` in your project. `react` and `react-dom` are peer dependencies of this library.
 
-## Virtual environment
-
-```sh
-virtualenv .venv
-source .venv/bin/activate
-pip install -r trame-app/requirements.txt
-```
-
-## trame application
-
-### Run trame-app
-```sh
-cd trame-app
-path/to/pvpython ./app.py --port 8080 --server --venv absolute/path/to/.venv
-```
-
-## React Application
-
-### Setup
-In an other terminal:
-
-```sh
+## Example
+The [example](./example) shows how you can use trame-react to integrate multiple trame application through an iframe.  
+```bash
+cd example/trame-app
+pip install -r requirements.txt
+python app.py --server --port 8080
+python app.py --server --port 8081
+cd ../react-app
 npm install
+npm run start
 ```
 
-### Apps communication
-Before launching the streamlit app, please modify
-.venv/lib/python3.9/site-packages/trame_iframe/module/serve/trame-iframe.umd.js file:
+## Usage
+```js
+import { TrameIframeApp } from '@kitware/trame-react';
 
-Change in "Communicator" section:
+// callback that will be called when the iframe and the trame application are ready
+const onViewerReady = (communicator) => {
+    communicator.state.onReady(() => {
+        communicator.state.watch(['a'], (a) => {
+            // ...
+        })
+    })
+}
 
-```sh
-window.postMessage(e,"*");
+// the HTML id which is going to be assigned to the actual iframe tag
+const iframeId = "my_iframe";
+
+// the URL of the remote trame server
+const url = "https://trame.app";
+
+<TrameIframeApp
+    style={{ height: '80%' }}
+    iframeId={iframeId}
+    url={url}
+    onCommunicatorReady={onViewerReady}
+/>
 ```
-
-by
-
-```sh
-window.top.postMessage(e,"*");
-```
-
-Open localhost:8081 on your web browser
