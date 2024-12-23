@@ -8,12 +8,12 @@ export default {
   input: 'src/index.ts', // Entry point
   output: [
     {
-      file: 'dist/index.cjs.js',
+      file: 'dist/trame-react.cjs.js',
       format: 'cjs', // CommonJS for Node.js
       exports: 'named',
     },
     {
-      file: 'dist/index.esm.js',
+      file: 'dist/trame-react.esm.js',
       format: 'esm', // ES Module for modern bundlers
       exports: 'named',
     },
