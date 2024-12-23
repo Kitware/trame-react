@@ -4,12 +4,12 @@
   "description": "react-trame integration",
   "main": "/index.js",
   "dependencies": {
+    "@kitware/trame-react": "^1.0.0",
     "@patternfly/react-core": "^6.0.0",
     "@patternfly/react-icons": "^6.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-scripts": "^5.0.0",
-    "trame-react": "^1.0.0"
+    "react-scripts": "^5.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

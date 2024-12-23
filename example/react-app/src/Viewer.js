@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef } from 'react';
-import { TrameIframeApp } from 'trame-react';
+import { TrameIframeApp } from '@kitware/trame-react';
 import {
   Button,
   Toolbar,
