@@ -1,6 +1,6 @@
 numpy
 trame
-# trame-iframe
+trame-iframe
 trame-vuetify
 trame-vtk
 vtk
