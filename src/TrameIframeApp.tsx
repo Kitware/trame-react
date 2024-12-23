@@ -18,7 +18,7 @@ const TrameIframeApp: React.FC<TrameIframeAppProps> =
       iframe = document.getElementById(iframeId);
 
       if (iframe == null) {
-        throw new Error("iframe not found");
+        throw new Error(`iframe ${iframeId} not found`);
       }
 
       const createClientCommunicator = () => {
@@ -30,30 +30,26 @@ const TrameIframeApp: React.FC<TrameIframeAppProps> =
 
       return function unmount() {
         if (iframe) {
-            listeners.forEach((l) => iframe.removeEventListener("load", l));
+          listeners.forEach((l) => iframe.removeEventListener("load", l));
         }
 
         listeners = [];
 
         if (iframeClientCommunicator) {
-            iframeClientCommunicator.cleanup();
+          iframeClientCommunicator.cleanup();
         }
       };
     }, []);
 
-    let content = null;
-
-    if (url !== null) {
-      content = <iframe id={iframeId} src={url} style={{ height: "100%", width: "100%" }} />;
-    } else {
-      content = (
-        <div>
-          An error occured while instanciating trame app. Please refer to
-          viz-logs files.
-        </div>
-      );
-    }
-    return <div style={{ height: "100%", width: "100%" }}>{content}</div>;
+    return (
+      <div style={{ height: "100%", width: "100%" }}>
+        <iframe
+          id={iframeId}
+          src={url}
+          style={{ height: "100%", width: "100%" }}
+        />
+      </div>
+    );
   };
 
 export default TrameIframeApp;
