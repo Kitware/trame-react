@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
-import { TrameIframeApp } from "trame-react";
+/* eslint-disable react/prop-types */
+import React, { useState, useEffect, useRef } from 'react';
+import { TrameIframeApp } from 'trame-react';
 import {
   Button,
   Toolbar,
@@ -7,7 +8,7 @@ import {
   ToolbarItem,
   Slider,
   Switch,
-} from "@patternfly/react-core";
+} from '@patternfly/react-core';
 
 function debounce(func, wait) {
   let timeout;
@@ -23,9 +24,9 @@ function debounce(func, wait) {
 function deepEqual(obj1, obj2) {
   if (obj1 === obj2) return true;
   if (
-    typeof obj1 !== "object" ||
+    typeof obj1 !== 'object' ||
     obj1 === null ||
-    typeof obj2 !== "object" ||
+    typeof obj2 !== 'object' ||
     obj2 === null
   )
     return false;
@@ -49,7 +50,10 @@ function stateIsSync(localState, trameState) {
   const trameStatekeys = Object.keys(trameState);
 
   for (let localKey of localStateKeys) {
-    if (!trameStatekeys.includes(localKey) || !deepEqual(localState[localKey], trameState[localKey])) {
+    if (
+      !trameStatekeys.includes(localKey) ||
+      !deepEqual(localState[localKey], trameState[localKey])
+    ) {
       return false;
     }
   }
@@ -63,7 +67,7 @@ const Viewer = ({ viewerId, url }) => {
 
   const [viewerState, setViewerState] = useState({
     resolution: 20,
-    interaction_mode: "interact",
+    interaction_mode: 'interact',
   });
 
   useEffect(() => {
@@ -71,12 +75,12 @@ const Viewer = ({ viewerId, url }) => {
       if (!trameCommunicator.current) {
         return;
       }
-  
+
       trameCommunicator.current.state.get().then((trame_state) => {
         if (!stateIsSync(viewerState, trame_state)) {
           trameCommunicator.current.state.update(viewerState);
         }
-      })
+      });
     }, 25);
   }, []);
 
@@ -84,17 +88,17 @@ const Viewer = ({ viewerId, url }) => {
     synchronizeTrameState.current(viewerState);
   }, [viewerState]);
 
-  const resetCamera = (comm) => {
-    console.debug("resetting camera");
-    trameCommunicator.current.trigger("raise_error").catch((err) => {
+  const resetCamera = () => {
+    console.debug('resetting camera');
+    trameCommunicator.current.trigger('raise_error').catch((err) => {
       throw err;
-    })
-    trameCommunicator.current.trigger("reset_camera");
+    });
+    trameCommunicator.current.trigger('reset_camera');
   };
 
-  const resetResolution = (comm) => {
-    console.debug("resetting resolution");
-    trameCommunicator.current.trigger("reset_resolution");
+  const resetResolution = () => {
+    console.debug('resetting resolution');
+    trameCommunicator.current.trigger('reset_resolution');
   };
 
   const onViewerReady = (comm) => {
@@ -102,69 +106,77 @@ const Viewer = ({ viewerId, url }) => {
 
     trameCommunicator.current.state.onReady(() => {
       trameCommunicator.current.state.watch(
-        ["interactor_settings"],
+        ['interactor_settings'],
         (interactor_settings) => {
           console.log({ interactor_settings });
         }
       );
 
-      trameCommunicator.current.state.watch(["resolution", "interaction_mode"], (resolution, interaction_mode) => {
-        setViewerState((prevState) => ({
-          ...prevState,
-          resolution,
-          interaction_mode
-        }));
-      });
+      trameCommunicator.current.state.watch(
+        ['resolution', 'interaction_mode'],
+        (resolution, interaction_mode) => {
+          setViewerState((prevState) => ({
+            ...prevState,
+            resolution,
+            interaction_mode,
+          }));
+        }
+      );
     });
   };
 
   return (
-    <div className="viewer" style={{ height: "100%" }}>
-      <Toolbar style={{ height: "10%"}}>
+    <div className="viewer" style={{ height: '100%' }}>
+      <Toolbar style={{ height: '10%' }}>
         <ToolbarContent>
           <ToolbarItem>
-            <div style={{ "min-width": "200px" }}>
+            <div style={{ 'min-width': '200px' }}>
               <Slider
                 min={3}
                 max={60}
                 step={1}
                 inputLabel="resolution"
                 value={viewerState.resolution}
-                onChange={
-                  (e, res) => {
-                    setViewerState((prevViewerState) => ({
-                      ...prevViewerState,
-                      resolution: res,
-                    }));
-                  }
-                }
+                onChange={(e, res) => {
+                  setViewerState((prevViewerState) => ({
+                    ...prevViewerState,
+                    resolution: res,
+                  }));
+                }}
               />
             </div>
           </ToolbarItem>
           <ToolbarItem>
-            <Button variant="primary" onClick={(e) => resetCamera()}>
+            <Button variant="primary" onClick={resetCamera}>
               Reset Camera
             </Button>
           </ToolbarItem>
           <ToolbarItem>
-            <Button variant="primary" onClick={(e) => resetResolution()}>
+            <Button variant="primary" onClick={resetResolution}>
               Reset Resolution
             </Button>
           </ToolbarItem>
           <ToolbarItem>
-            <Button variant="primary" onClick={(e) => trameCommunicator.current.trigger("get_number_of_cells").then(console.log)}>
+            <Button
+              variant="primary"
+              onClick={() =>
+                trameCommunicator.current
+                  .trigger('get_number_of_cells')
+                  .then(console.log)
+              }
+            >
               Get Number Of Cells
             </Button>
           </ToolbarItem>
           <ToolbarItem>
             <Switch
               label={viewerState.interaction_mode}
-              isChecked={viewerState.interaction_mode === "select"}
+              isChecked={viewerState.interaction_mode === 'select'}
               onChange={(e, checked) => {
                 setViewerState((prevViewerState) => ({
                   ...prevViewerState,
-                  interaction_mode: checked ? "select" : "interact",
-                }))
+                  interaction_mode: checked ? 'select' : 'interact',
+                }));
               }}
             />
           </ToolbarItem>
@@ -172,7 +184,7 @@ const Viewer = ({ viewerId, url }) => {
       </Toolbar>
 
       <TrameIframeApp
-        style={{ height: "80%"}}
+        style={{ height: '80%' }}
         iframeId={viewerId}
         url={url}
         onCommunicatorReady={onViewerReady}

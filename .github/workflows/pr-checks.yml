@@ -1,0 +1,23 @@
+name: PR Checks
+on:
+  pull_request:
+  merge_group:
+
+jobs:
+  pr-checks:
+    runs-on: ubuntu-20.04
+    name: Check and lint PR
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # needed so commitlint can lint the commits
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 20
+      - run: npm ci
+      - name: Enforce code style
+        run: npm run validate
+      - name: Lint commits
+        if: github.event_name != 'merge_group'
+        run: npx commitlint --from=${{ github.event.pull_request.base.sha }}

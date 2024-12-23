@@ -1,1 +1,1 @@
-export { default as TrameIframeApp } from "./TrameIframeApp";
+export { default as TrameIframeApp } from './TrameIframeApp';
